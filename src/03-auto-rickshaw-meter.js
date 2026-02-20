@@ -33,4 +33,23 @@
  */
 export function calculateAutoFare(distance, waitingMinutes = 0) {
   // Your code here
+  if (typeof distance !== "number" || distance <= 0 || waitingMinutes < 0)
+    return -1;
+
+  let totalFare = 0;
+  let distanceTravelled = 0;
+
+  // Waiting Charges
+  totalFare += Math.ceil(waitingMinutes / 2) * 5;
+
+  // Distance Charges
+  while (distanceTravelled < Math.ceil(distance)) {
+    if (distanceTravelled < 1) totalFare += 30;
+    else if (distanceTravelled < 5) totalFare += 15;
+    else totalFare += 10;
+
+    distanceTravelled++;
+  }
+
+  return totalFare;
 }
